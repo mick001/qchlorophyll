@@ -8,7 +8,7 @@ On [MilanoR](http://www.milanor.net/blog/r-satellite-data-to-identify-marine-bio
 
 Example plot of predicted net heat flux over a user-specified spatial grid:
 
-![Interpolation](https://cloud.githubusercontent.com/assets/13961654/23547806/e7b48cda-0004-11e7-8b03-757ea30bde4e.png)
+![Interpolation](https://cloud.githubusercontent.com/assets/13961654/23580417/bcd0d03e-0101-11e7-83da-cc78d9326852.jpeg)
 
 ---
 
@@ -73,6 +73,9 @@ The scripts folder contains some examples of use. In the following lines you can
 - [Random forest model: data loading, fitting and predicting with Qchlorophyll](https://github.com/pegoraro/qchlorophyll/blob/master/scripts/script-esempio-rf-presentazione_def.rmd)
 - [Spatial data resizing in Qchlorophyll](https://github.com/pegoraro/qchlorophyll/blob/master/scripts/script-esempio-aumento-risoluzione.rmd).
 
+Heat map of net heat flux:
+![qnet_1](https://cloud.githubusercontent.com/assets/13961654/23580388/361ecadc-0101-11e7-9ee0-068ec40016f5.jpeg)
+
 Example of partial dependence plot of y vs other variables
 ![bloom_start_vs_other](https://cloud.githubusercontent.com/assets/13961654/23548632/ba64a220-0008-11e7-9a6d-73b4f20b4a97.png)
 
@@ -83,7 +86,7 @@ and average predicted map
 ![predictive_map_average](https://cloud.githubusercontent.com/assets/13961654/23548639/c08111fc-0008-11e7-9e94-8c860e5ec2d7.png)
 
 Example of spatial data resizing on the qnet variable (net heat flux), here is a heat map of the outcome:
-![qnet_interp_heat_map](https://cloud.githubusercontent.com/assets/13961654/23547806/e7b48cda-0004-11e7-8b03-757ea30bde4e.png)
+![qnet_interp_heat_map](https://cloud.githubusercontent.com/assets/13961654/23580417/bcd0d03e-0101-11e7-83da-cc78d9326852.jpeg)
 
-and a comparison of available data and outcome:
-![qnet_interp_density](https://cloud.githubusercontent.com/assets/13961654/23547817/f86c36fe-0004-11e7-9546-61763b5c9c62.png)
+and as a comparison, the original available data:
+![qnet_interp_density](https://cloud.githubusercontent.com/assets/13961654/23580419/c075be16-0101-11e7-9afd-9f1b9422f5e2.jpeg)
