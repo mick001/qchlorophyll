@@ -91,3 +91,8 @@ Example of spatial data resizing on the qnet variable (net heat flux), here is a
 ---
 and as a comparison, the original available data:
 ![qnet_interp_density](https://cloud.githubusercontent.com/assets/13961654/23580419/c075be16-0101-11e7-9afd-9f1b9422f5e2.jpeg)
+
+---
+
+## Notes
+Global ocean heat flux and evaporation products were provided by the WHOI OAFlux project (http://oaflux.whoi.edu) funded by the NOAA Climate Observations and Monitoring (COM) program
