@@ -199,7 +199,7 @@ single_partial_dependence_plot <- function(rf_model, data, variable, return_plot
 #' @param facet_by variable to use in facet plots. Character.
 #' @param lon_lat_names names of latitude and longitude in the dataset. A list of characters. Defaults to list("lon", "lat")
 #' @importFrom ggplot2 ggplot geom_tile stat_contour facet_wrap aes_string
-#' @importFrom dplyr %>% select_ group_by_ mutate summarise
+#' @importFrom dplyr %>% select group_by mutate summarise all_of across
 #' @importFrom lazyeval interp
 #' @export
 #'
@@ -224,8 +224,8 @@ predictive_map <- function(rf_model, data, facet_plot = FALSE, facet_by = "year"
     {
         # Select data and group
         data <- data %>%
-            select_(.dots = var_select) %>%
-            group_by_(.dots = ll_names) %>%
+            select(all_of(var_select)) %>%
+            group_by(across(ll_names)) %>%
             summarise(pred = mean(pred, na.rm = TRUE)) %>%
             mutate(year = "Average")
     }

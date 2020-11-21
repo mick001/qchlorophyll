@@ -5,7 +5,7 @@
 #' @param lon_lat_names names of coordinates in the mask file. Defaults to c("lon", "lat")
 #' @param mask_name mask variable name
 #' @importFrom ncdf4 nc_open nc_close ncvar_get
-#' @importFrom dplyr tbl_df %>%
+#' @importFrom dplyr as_tibble %>%
 #' @return a dplyr dataframe
 #' @export
 #'
@@ -25,7 +25,7 @@ load_mask <- function(mask_file = "mask_25km.nc", lon_lat_names = c("lon", "lat"
     # Load data as dataframe
     mask <- expand.grid(lon = lon, lat = lat)
     mask$mask <- unlist(as.vector(md))
-    mask <- mask %>% tbl_df()
+    mask <- mask %>% as_tibble()
 
     # Return mask as a dataframe
     return(mask)

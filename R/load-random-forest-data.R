@@ -3,7 +3,7 @@
 #'
 #' @param file_path path to .csv file to load.
 #' @param ... other arguments to be used by the read.csv function
-#' @importFrom dplyr tbl_df
+#' @importFrom dplyr as_tibble
 #' @export
 #'
 load_a_single_csv <- function(file_path, ...)
@@ -11,7 +11,7 @@ load_a_single_csv <- function(file_path, ...)
     # Load .csv file
     data <- read.csv(file = file_path, ...)
     # Convert dataframe into a dplyr dataframe
-    data <- tbl_df(data)
+    data <- as_tibble(data)
     # Return
     return(data)
 }
@@ -29,7 +29,7 @@ load_a_single_csv <- function(file_path, ...)
 #' @param npixels Number of pixels in each dataframe. (number of rows of data)
 #' @param years years to load. A character vector.
 #' @param must_have_variables a vector of variables that must be included in each .csv file. Character vector.
-#' @importFrom dplyr tbl_df mutate %>%
+#' @importFrom dplyr as_tibble mutate %>%
 #' @export
 #'
 load_all_csv <- function(main_folder_path, folder, starts_with, years = c("2011", "2012"), npixels = 5520, must_have_variables = c("lon", "lat"))
@@ -43,7 +43,7 @@ load_all_csv <- function(main_folder_path, folder, starts_with, years = c("2011"
         # Load .csv
         df_loaded <- read.csv(file_name)
         # Convert into dplyr dataframe and add year
-        df_loaded <- tbl_df(df_loaded) %>% mutate(year = as.numeric(year))
+        df_loaded <- as_tibble(df_loaded) %>% mutate(year = as.numeric(year))
         # Return
         return(df_loaded)
     }
@@ -174,7 +174,7 @@ shift_lon_lat <- function(dataframe, reference_df, lon_lat_names = c("lon", "lat
 #' be reordered according to the new longitude and latitude values. Character.
 #' @param lon_lat_names name of longitude and latitude variables. A character vector.
 #' Example: by default lon_lat_names = c("lon", "lat")
-#' @importFrom dplyr tbl_df
+#' @importFrom dplyr as_tibble
 #' @export
 #'
 format_lon_lat <- function(dataframe, reference_df, variable, lon_lat_names = c("lon", "lat"))
@@ -234,7 +234,7 @@ format_lon_lat <- function(dataframe, reference_df, variable, lon_lat_names = c(
     # Set names
     names(new_dataframe) <- names(dataframe)
     # Convert to a dplyr dataframe
-    new_dataframe <- tbl_df(new_dataframe)
+    new_dataframe <- as_tibble(new_dataframe)
     # Return
     return(new_dataframe)
 }
@@ -309,12 +309,10 @@ join_data <- function(multiple_year_data, single_year_data, m_year_join_by = c("
 #'
 #' @param data a dplyr dataframe
 #' @param group_name name of the variable containing the group information
-#' @importFrom dplyr filter_ %>%
-#' @importFrom lazyeval interp
 #' @export
 #'
 keep_pixels_with_group <- function(data, group_name = "gruppo")
 {
-    filtered_df <- data %>% filter_(interp( ~!is.na(x), x = as.name(group_name)) )
+    filtered_df <- data[!is.na(data[group_name]),]
     return(filtered_df)
 }

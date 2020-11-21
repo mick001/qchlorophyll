@@ -8,33 +8,32 @@
 #'
 #' @param data a dplyr dataframe containing the data to be standardized
 #' @param seed random seed for reproducibility purposes
-#' @param exclude_variables variables to be excluded from the standardization process. A list of characters.
+#' @param exclude_variables variables to be excluded from the standardization process. A vector of characters.
 #' @param m Number of multiple imputations. The default is m=5.
 #' @param maxit A scalar giving the number of iterations. The default is 5
 #' @param meth method used for imputation. See mice::mice function description for more information.
 #' @param verbose Be verbose?
 #' @param ... other parameters passed directly to the mice::mice function
-#' @importFrom dplyr select_ bind_cols tbl_df %>%
+#' @importFrom dplyr select bind_cols as_tibble %>% all_of
 #' @return A dplyr dataframe
 #' @export
 #'
-approximate_NAs <- function(data, seed, exclude_variables = list("lon", "lat", "id_pixel"), m = 5, maxit = 50, meth = "pmm", verbose = FALSE, ...)
+approximate_NAs <- function(data, seed, exclude_variables = c("lon", "lat", "id_pixel"), m = 5, maxit = 50, meth = "pmm", verbose = FALSE, ...)
 {
     requireNamespace("mice")
 
     # Drop columns not needed
-    variables_to_drop <- lapply(exclude_variables, function(x) paste("-", x, sep = ""))
-    data_to_fill <- data %>% select_(.dots = variables_to_drop)
+    data_to_fill <- data %>% select(!all_of(exclude_variables))
 
     # Impute data using mice
     tempData <- mice::mice(data_to_fill, m = m, maxit = maxit, meth = meth, seed = seed, printFlag = verbose, ...)
 
     # Filled data.
     filled_data <- mice::complete(tempData, 1)
-    filled_data <- tbl_df(filled_data)
+    filled_data <- as_tibble(filled_data)
 
     # Bind excluded columns
-    filled_data <- data %>% select_(.dots = exclude_variables) %>% bind_cols(filled_data)
+    filled_data <- data %>% select(all_of(exclude_variables)) %>% bind_cols(filled_data)
 
     # Set attribute for future use. Check no slowdowns
     attr(filled_data, "imputed_dataset") <- tempData
@@ -76,24 +75,23 @@ plot_density_imputed_na <- function(data)
 #' The output of this function is a dataframe ready to be used for the kmeans analysis.
 #'
 #' @param data a dplyr dataframe containing the data to be standardized
-#' @param exclude_variables variables to be excluded from the standardization process. A list of characters.
-#' @importFrom dplyr select_ %>% tbl_df bind_cols
+#' @param exclude_variables variables to be excluded from the standardization process. A vector of characters.
+#' @importFrom dplyr select %>% as_tibble bind_cols all_of
 #' @return A dplyr dataframe
 #' @export
 #'
-standardize_data <- function(data, exclude_variables = list("lon", "lat", "id_pixel"))
+standardize_data <- function(data, exclude_variables = c("lon", "lat", "id_pixel"))
 {
     # Drop columns not needed
-    variables_to_drop <- lapply(exclude_variables, function(x) paste("-", x, sep = ""))
-    data_to_scale <- data %>% select_(.dots = variables_to_drop)
+    data_to_scale <- data %>% select(!all_of(exclude_variables))
 
     # Standardize variables by their range
     rge <- sapply(data_to_scale, function(x) diff(range(x)))
     scaled_data <- sweep(x = data_to_scale, MARGIN = 2, STATS = rge, FUN = "/")
-    scaled_data <- tbl_df(scaled_data)
+    scaled_data <- as_tibble(scaled_data)
 
     # Bind columns
-    scaled_data <- data %>% select_(.dots = exclude_variables) %>% bind_cols(scaled_data)
+    scaled_data <- data %>% select(all_of(exclude_variables)) %>% bind_cols(scaled_data)
 
     # Attach rge for later use
     attr(scaled_data, "rge") <- rge
@@ -112,19 +110,18 @@ standardize_data <- function(data, exclude_variables = list("lon", "lat", "id_pi
 #' @param n_centers Number of clusters to be used. A vector such as 2:5
 #' @param nstart how many random sets should be chosen?
 #' @param seed Random seed set for reproducibility purposes. Numeric, NULL by default. (Integer)
-#' @param exclude_variables variables to exclude from kmeans analysis. A list of characters
+#' @param exclude_variables variables to exclude from kmeans analysis. A vector of characters
 #' @param ... Other arguments accepted by the stats::kmeans function.
 #' @importFrom clusterSim index.G1
-#' @importFrom dplyr select_
+#' @importFrom dplyr select all_of
 #' @return An object of class kmeans
 #'
 #' @export
 #'
-kmeans_analysis <- function(x, n_centers, nstart = 1, seed = NULL, exclude_variables = list("lon", "lat", "id_pixel"), ...)
+kmeans_analysis <- function(x, n_centers, nstart = 1, seed = NULL, exclude_variables = c("lon", "lat", "id_pixel"), ...)
 {
     # Drop columns not needed
-    variables_to_drop <- lapply(exclude_variables, function(x) paste("-", x, sep = ""))
-    x <- x %>% select_(.dots = variables_to_drop)
+    x <- x %>% select(!all_of(exclude_variables))
 
     # Set random seed if seed is not NULL
     if( ! is.null(seed) ){ set.seed(seed) }
@@ -219,17 +216,17 @@ extract_results <- function(kmeans_results)
 #' @param export_vars variables to export. A list of characters
 #' @param join_by variables to join by. A vector of characters
 #' @param unique_id a list of unique identifiers
-#' @importFrom dplyr %>% select_ full_join distinct arrange
+#' @importFrom dplyr %>% select full_join distinct arrange all_of across
 #' @export
 #'
-export_data <- function(x, nc_dataframe, final_kmeans_results, filename, export_vars = list("lon", "lat", "id_pixel", "gruppo"), join_by = c("id_pixel", "lon", "lat"), unique_id = list("lon", "lat", "id_pixel"))
+export_data <- function(x, nc_dataframe, final_kmeans_results, filename, export_vars = c("lon", "lat", "id_pixel", "gruppo"), join_by = c("id_pixel", "lon", "lat"), unique_id = c("lon", "lat", "id_pixel"))
 {
     # Attach cluster
     x$gruppo <- final_kmeans_results$cluster
     # Select unique lon lat and idpixel from main dataframe
-    new_nc <- nc_dataframe %>% select_(.dots = unique_id) %>% distinct()
+    new_nc <- nc_dataframe %>% select(all_of(unique_id)) %>% distinct()
     # Select only variables to export and join
-    new_x <- x %>% select_(.dots = export_vars) %>% full_join(new_nc, by = join_by) %>% arrange(id_pixel)
+    new_x <- x %>% select(all_of(export_vars)) %>% full_join(new_nc, by = join_by) %>% arrange(across(id_pixel))
     # Write data to csv
     write.csv(new_x, filename, row.names = FALSE)
     # Print

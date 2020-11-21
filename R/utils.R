@@ -141,9 +141,6 @@ fix_coordinates <- function(nc, coordinates, spare_coordinates)
     condition_2 <- sapply(spare_coordinates, function(x) exists(x, get("dim", nc)), USE.NAMES = F)
     # Select coordinates names according to their existance inside the .nc file
     existing_coordinates <- c(coordinates[condition_1], spare_coordinates[condition_2])
-    #print(condition_1)
-    #print(condition_2)
-    #print(existing_coordinates)
 
     return(existing_coordinates)
 }
@@ -284,16 +281,16 @@ crop_selected_area <- function(df_list, lower_left_lat_lon, upper_right_lat_lon)
 #' @param coordinates names of spatial coordinates latitude and longitude in the reference dataframe
 #' @param id_name name of the unique identifier in the reference dataframe
 #' @param arrange_order how to arrange the output? Default: by id_pixel, then by id_date.
-#' @importFrom dplyr select full_join arrange_
+#' @importFrom dplyr select all_of full_join arrange across
 #' @return Returns a dplyr dataframe
 #' @export
 #'
 assign_id_from_reference <- function(df, reference_df, coordinates = c("lon", "lat"), id_name = "id_pixel", arrange_order = c("id_pixel", "id_date"))
 {
     # Select relevant variables only
-    reference_df <- reference_df %>% select_(.dots = as.list(c(coordinates, id_name)))
+    reference_df <- reference_df %>% select(all_of(c(coordinates, id_name)))
     # Join by coordinates
-    df_out <- df %>% full_join(reference_df, by = coordinates) %>% arrange_(arrange_order)
+    df_out <- df %>% full_join(reference_df, by = coordinates) %>% arrange(across(arrange_order))
     # Return
     return(df_out)
 }

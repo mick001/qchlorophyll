@@ -58,7 +58,7 @@ interpolate_grid <- function(data_list, reference_df, variable, unique_id = "id_
 #' @param lat_range latitude range (min, max)
 #' @param step step between longitude and latitude vectors
 #' @param date_variable_name name of the date variable. Character. Defaults to "date"
-#' @importFrom dplyr %>% select distinct filter_ mutate_ tbl_df bind_rows first
+#' @importFrom dplyr %>% select distinct filter mutate as_tibble bind_rows first all_of bind_cols
 #' @importFrom sp coordinates gridded
 #' @importFrom gstat idw
 #' @importFrom lazyeval interp
@@ -68,7 +68,7 @@ interpolate_grid <- function(data_list, reference_df, variable, unique_id = "id_
 interpolate_single_grid_multi_day <- function(df, unique_id, variable, coordinates_names, lon_range, lat_range, step, date_variable_name)
 {
     # Count the number of days/month to interpolate
-    days <- df %>% select_(unique_id) %>% distinct() %>% unlist()
+    days <- df %>% select(unique_id) %>% distinct() %>% unlist()
     names(days) <- NULL
     # Output list
     out_lst <- list()
@@ -84,17 +84,20 @@ interpolate_single_grid_multi_day <- function(df, unique_id, variable, coordinat
     for(i in days)
     {
         # Select data from the ith date
-        day_data <- df %>% filter_(interp(~x == y, x = as.name(unique_id), y = i)) %>% na.omit()
+        day_data <- df %>% filter(.data[[unique_id]] == i) %>% na.omit()
+
         # Set aside date for later mutate call
-        day_date <- day_data %>% select_(date_variable_name) %>% distinct() %>% first()
+        day_date <- day_data %>% select( {{date_variable_name}} ) %>% distinct() %>% first()
         # Delete date from df
-        day_data <- day_data %>% select_(paste("-", date_variable_name))
+        day_data <- day_data %>% select( !{{date_variable_name}} )
 
         # Set aside variables common to each date (id_date, month, year)
+        other_vars_name <- setdiff(names(day_data), c(coordinates_names, variable))
         other_vars <- day_data %>%
-            select_(.dots = as.list(setdiff(names(day_data), c(coordinates_names, variable)) )) %>%
+            select(all_of(other_vars_name)) %>%
             distinct() %>%
             as.list()
+
         # Set coordinates
         sp::coordinates(day_data) = ~ lon + lat
         # Interpolate using idw
@@ -105,9 +108,15 @@ interpolate_single_grid_multi_day <- function(df, unique_id, variable, coordinat
         # Set names
         names(idw_output)[1:3] <- c(coordinates_names[1], coordinates_names[2], variable)
         # Format output
-        idw_output <- tbl_df(idw_output) %>%
-            select_(coordinates_names[1], coordinates_names[2], variable) %>%
-            mutate_(.dots = other_vars) %>%
+        idw_output <- as_tibble(idw_output) %>%
+            select(coordinates_names[1], coordinates_names[2], variable) %>%
+
+            ###########################################################################################
+            ###########################################################################################
+            bind_cols(other_vars) %>%
+            ###########################################################################################
+            ###########################################################################################
+
             mutate(date = day_date)
         # Assign output to list
         out_lst[[i]] <- idw_output

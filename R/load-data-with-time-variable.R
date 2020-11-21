@@ -79,8 +79,8 @@ load_nc_with_time <- function(path, from = NULL, to = NULL, variables = c("qnet"
 #' @importFrom stringi stri_extract_last_regex
 #' @importFrom ncdf4 nc_open nc_close
 #' @importFrom lubridate dmy ymd yday month year as_date
-#' @importFrom dplyr %>% mutate tbl_df bind_cols filter select_ mutate_
-#' @importFrom lazyeval interp
+#' @importFrom dplyr %>% mutate as_tibble bind_cols filter select all_of
+#' @importFrom rlang exprs
 #' @return a dplyr dataframe
 #' @export
 #'
@@ -115,8 +115,8 @@ recover_nc_data <- function(file_path, variables, coordinates, spare_coordinates
     variables_data <- lapply(raw_data[variables], fun)
     variables_df <- do.call(cbind, variables_data)
     names(variables_df) <- variables
-    variables_df <- variables_df %>% tbl_df()
-    data <- data_grid %>% tbl_df() %>% bind_cols(variables_df)
+    variables_df <- variables_df %>% as_tibble()
+    data <- data_grid %>% as_tibble() %>% bind_cols(variables_df)
 
     ######################################
     # Fix longitude.
@@ -134,18 +134,26 @@ recover_nc_data <- function(file_path, variables, coordinates, spare_coordinates
     ref_date <- dmy(paste("31-12", year - 1, sep = "-"))
 
     # Add id_date, month, year. Mutate call for month and select call
-    id_date_mutate_call <- interp(~ yday(ref_date + time), ref_date = ref_date, time = as.name(time_variable) )
-    month_mutate_call <- interp(~ month(ref_date + time), ref_date = ref_date, time = as.name(time_variable))
-    year_mutate_call <- interp(~ year(ref_date + time), ref_date = ref_date, time = as.name(time_variable))
-    date_mutate_call <- interp(~ ref_date + time, ref_date = ref_date)
+    d <- as.name("date")
+    r_d <- as.name(ref_date)
+    time_v <- as.name(time_variable)
+    mutate_call <- exprs(id_date = yday(!!r_d + !!time_v),
+                         month = month(!!r_d + !!time_v),
+                         year = year(!!r_d + !!time_v),
+                         date = !!r_d + !!time_v)
+
     # Select call
-    select_call <- list(coordinates[1], coordinates[2], variables, "id_date", "month", "year", "date")
+    select_call <- c(coordinates[1], coordinates[2], variables, "id_date", "month", "year", "date")
 
     # If data frequency is monthly, update mutate and select calls
     if(monthly)
     {
-        month_mutate_call <- interp(~ time, time = as.name(time_variable))
-        select_call <- list(coordinates[1], coordinates[2], variables, "month", "year", "date")
+        mutate_call <- exprs(id_date = yday(!!r_d + !!time_v),
+                             month = month(!!time_v),
+                             year = year(!!r_d + !!time_v),
+                             date = !!r_d + !!time_v)
+
+        select_call <- c(coordinates[1], coordinates[2], variables, "month", "year", "date")
     }
     # If data is specified from an origin, then act accordingly (example: shtfl .nc data)
     if( !is.null(date_origin) )
@@ -154,22 +162,17 @@ recover_nc_data <- function(file_path, variables, coordinates, spare_coordinates
         data <- data %>% mutate(origin = ymd(date_origin),
                                 date = as.Date(time / 24, origin = origin))
         # Redefine the mutate calls
-        id_date_mutate_call <- interp( ~ yday(date) )
-        month_mutate_call <- interp( ~ month(date) )
-        year_mutate_call <- interp( ~ year(date) )
-        date_mutate_call <- interp( ~ date)
+        d <- as.name("date")
+        mutate_call <- exprs(id_date = yday(!!d),
+                             month = month(!!d),
+                             year = year(!!d),
+                             date = !!d)
     }
-
-    # Full mutate call
-    mutate_call <- list(id_date = id_date_mutate_call,
-                        month = month_mutate_call,
-                        year = year_mutate_call,
-                        date = date_mutate_call)
 
     # Mutate and select variables
     data <- data %>%
-                mutate_(.dots = mutate_call) %>%
-                    select_(.dots = select_call)
+                mutate(!!!mutate_call) %>%
+                    select(all_of(select_call))
 
     # Print status info
     print(paste("Loaded: ", strsplit(file_path, "/")[[1]][ length(strsplit(file_path, "/")[[1]]) ] ))

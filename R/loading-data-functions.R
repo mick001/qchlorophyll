@@ -127,7 +127,7 @@ load_nc_file <- function(file_path, variables = c("CHL1_mean"), coordinates = c(
 #' @param expand_variables variables to be used as x and y reference of the image grid. These variables must be included in the raw_data list.
 #' @param current_date The date of the observation.
 #' @importFrom lubridate day month year yday
-#' @importFrom dplyr mutate bind_cols tbl_df %>%
+#' @importFrom dplyr mutate bind_cols as_tibble %>%
 #' @return A dplyr dataframe
 #' @export
 #'
@@ -140,8 +140,8 @@ reshape_data <- function(raw_data, variables, expand_variables, current_date)
     # Expand coordinates (lon and lat)
     data_grid <- raw_data[expand_variables] %>% expand.grid()
 
-    # Convert data.frame object to a tbl_df
-    data_grid <- tbl_df(data_grid)
+    # Convert data.frame object to a tibble
+    data_grid <- as_tibble(data_grid)
 
     # Melt variables into a single dataframe.
     #
@@ -177,7 +177,7 @@ reshape_data <- function(raw_data, variables, expand_variables, current_date)
 #'
 #' @param data_list A list of dplyr dataframes returned by the load_all_as_list function.
 #' @param coordinates Unique identifier to be used in the id assignment process.
-#' @importFrom dplyr bind_rows %>% select_ mutate row_number full_join distinct
+#' @importFrom dplyr bind_rows %>% select mutate row_number full_join distinct
 #' @return A dplyr dataframe
 #' @export
 #'
@@ -186,8 +186,13 @@ assign_id_and_melt <- function(data_list, coordinates =  c("lon", "lat"))
 
     # Bind all rows in a single dataframe
     data <- data_list %>% bind_rows()
+
     # Calculate id_pixel
-    id <- data %>% select_(coordinates[2], coordinates[1]) %>% distinct() %>% mutate(id_pixel = row_number())
+    id <- data %>%
+        select(coordinates[2], coordinates[1]) %>%
+        distinct() %>%
+        mutate(id_pixel = row_number())
+
     # Add id_pixel
     data <- full_join(id, data, by = coordinates)
 
