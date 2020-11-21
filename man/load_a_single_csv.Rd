@@ -14,4 +14,3 @@ load_a_single_csv(file_path, ...)
 \description{
 Load a single .csv file and output a dplyr dataframe
 }
-

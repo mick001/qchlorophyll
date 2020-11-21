@@ -4,33 +4,38 @@
 \alias{aggregate_statistics}
 \title{Calculate a series of stastistics on aggregated data}
 \usage{
-aggregate_statistics(data, variable = "CHL1_mean", stat_funs = list(avg =
-  "mean(., na.rm = TRUE)", NAs_count = "sum(is.na(.))", n_count = "n()"),
-  groups = list("id_pixel", "id_date"), id = "id_pixel",
-  unique_id = list("lat", "lon", "id_pixel"))
+aggregate_statistics(
+  data,
+  variable = "CHL1_mean",
+  stat_funs = list(avg = ~mean(., na.rm = TRUE), NAs_count = ~sum(is.na(.)), n_count =
+    ~n()),
+  groups = c("id_pixel", "id_date"),
+  id = "id_pixel",
+  unique_id = c("lat", "lon", "id_pixel")
+)
 }
 \arguments{
 \item{data}{a dplyr data frame}
 
 \item{variable}{variable to use in the calculation of the statistics}
 
-\item{stat_funs}{a list of functions to calculate the statistics. Each function must be expressed either as a
+\item{stat_funs}{a list of formulas to calculate the statistics. Each function must be expressed either as a
 formula or as a character. For instance, if I would like to calculate the mean, I could set stat_funs = list(avg = "mean").
 You can calculate multiple statistics too, for instance, to calculate both the mean and the standard deviation, just set
 stat_funs = list(avg = "mean", sd = "sd"). Note that:
 1. The name of the function inside the list will be the name of the column of the statistic calculated in the output dataframe.
-2. Should you need to pass arguments to each function such as "na.rm=TRUE" you can do this by setting list(avg = "mean(. , na.rm=TRUE)").
-You can pass all the arguments needed to the functions inside stat_fun, provided you remember to add the dot as the first argument.
+2. Should you need to pass arguments to each function such as "na.rm=TRUE" you can do this by setting list(avg = ~mean(. , na.rm=TRUE)).
+You can pass all the arguments needed to the formulas inside stat_fun, provided you remember to add the dot as the first argument.
 3. Each function must accept a vector as an input and output a single number.
 4. By default the number of missing data per group (NAs_count = sum(is.na(.)))) and the number of observations in each group (n_count = n())
 is calculated. Note that in case you need to filter out missing data with the function "filter_out_na", the filtering function expects the data
 to contain a variable named NAs_count containing the information on missing data.}
 
-\item{groups}{variables to group by (ie to aggregate by). A list.}
+\item{groups}{variables to group by (ie to aggregate by). A vector.}
 
 \item{id}{The main unique identifier (id_pixel for instance). A character.}
 
-\item{unique_id}{list of all the unique identifiers in the data you would like to keep. (By default: list("lat","lon", "id_pixel")). A list}
+\item{unique_id}{vector of all the unique identifiers in the data you would like to keep. (By default: list("lat","lon", "id_pixel")). A list}
 }
 \value{
 A dplyr data frame.
@@ -38,4 +43,3 @@ A dplyr data frame.
 \description{
 This function groups the observations and calculates a series of statistics.
 }
-

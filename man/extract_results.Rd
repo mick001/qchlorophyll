@@ -17,4 +17,3 @@ This function is used to extract the best results from the kmeans analysis.
 The best result is considered to be the result characterized by the highest
 Calinski-Harabasz index.
 }
-

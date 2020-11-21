@@ -14,4 +14,3 @@ plot_error_vs_trees(rf_model, title)
 \description{
 Plot model error vs number of trees
 }
-

@@ -13,4 +13,3 @@ must have an "imputed_dataset" attribute.}
 \description{
 Density plot of imputed NAs vs actual data.
 }
-

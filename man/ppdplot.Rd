@@ -5,10 +5,21 @@
 \title{Plot partial dependence plots. A revised version of the official function.
 The function had to be revised due to the use of NSE on the x.var argument.}
 \usage{
-ppdplot(x, pred.data, x.var, which.class, w, plot = TRUE, add = FALSE,
-  n.pt = min(length(unique(pred.data[, xname])), 51), rug = TRUE,
-  xlab = deparse(substitute(x.var)), ylab = "",
-  main = paste("Partial Dependence on", deparse(substitute(x.var))), ...)
+ppdplot(
+  x,
+  pred.data,
+  x.var,
+  which.class,
+  w,
+  plot = TRUE,
+  add = FALSE,
+  n.pt = min(length(unique(pred.data[, xname])), 51),
+  rug = TRUE,
+  xlab = deparse(substitute(x.var)),
+  ylab = "",
+  main = paste("Partial Dependence on", deparse(substitute(x.var))),
+  ...
+)
 }
 \arguments{
 \item{x}{altro}
@@ -41,4 +52,3 @@ ppdplot(x, pred.data, x.var, which.class, w, plot = TRUE, add = FALSE,
 Plot partial dependence plots. A revised version of the official function.
 The function had to be revised due to the use of NSE on the x.var argument.
 }
-

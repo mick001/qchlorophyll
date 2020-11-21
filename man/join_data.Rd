@@ -4,8 +4,12 @@
 \alias{join_data}
 \title{Join data together}
 \usage{
-join_data(multiple_year_data, single_year_data, m_year_join_by = c("lon",
-  "lat", "year"), s_year_join_by = c("lon", "lat"))
+join_data(
+  multiple_year_data,
+  single_year_data,
+  m_year_join_by = c("lon", "lat", "year"),
+  s_year_join_by = c("lon", "lat")
+)
 }
 \arguments{
 \item{multiple_year_data}{a list of lists of dataframes. Each dataframe should contain observations of a single variable in a certain year.}
@@ -20,4 +24,3 @@ join_data(multiple_year_data, single_year_data, m_year_join_by = c("lon",
 Join multiple year data by lon, lat and year
 Then join single year data by lon and lat
 }
-

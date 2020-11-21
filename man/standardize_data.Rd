@@ -4,12 +4,12 @@
 \alias{standardize_data}
 \title{Standardize data before running kmeans}
 \usage{
-standardize_data(data, exclude_variables = list("lon", "lat", "id_pixel"))
+standardize_data(data, exclude_variables = c("lon", "lat", "id_pixel"))
 }
 \arguments{
 \item{data}{a dplyr dataframe containing the data to be standardized}
 
-\item{exclude_variables}{variables to be excluded from the standardization process. A list of characters.}
+\item{exclude_variables}{variables to be excluded from the standardization process. A vector of characters.}
 }
 \value{
 A dplyr dataframe
@@ -18,4 +18,3 @@ A dplyr dataframe
 This function is used to standardize the data before running the kmeans analysis function.
 The output of this function is a dataframe ready to be used for the kmeans analysis.
 }
-

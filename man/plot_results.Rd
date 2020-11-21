@@ -12,4 +12,3 @@ plot_results(kmeans_results)
 \description{
 This function is used to plot the number of clusters against the Calinski-Harabasz index
 }
-

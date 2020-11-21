@@ -4,8 +4,7 @@
 \alias{extract_date_from_filepath}
 \title{Extract date from filepath}
 \usage{
-extract_date_from_filepath(path, date_format = "ymd",
-  date_match_position = 1)
+extract_date_from_filepath(path, date_format = "ymd", date_match_position = 1)
 }
 \arguments{
 \item{path}{path to file. Character}
@@ -41,4 +40,3 @@ it finds.
 2. Note that date format can be set (should it vary).
 3. If the date_format is not correct a NA is returned
 }
-

@@ -12,4 +12,3 @@ get_variable_importance(rf_model)
 \description{
 Get variable importance
 }
-

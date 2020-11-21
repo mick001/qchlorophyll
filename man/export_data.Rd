@@ -4,10 +4,15 @@
 \alias{export_data}
 \title{Extract results from the kmeans analysis}
 \usage{
-export_data(x, nc_dataframe, final_kmeans_results, filename,
-  export_vars = list("lon", "lat", "id_pixel", "gruppo"),
-  join_by = c("id_pixel", "lon", "lat"), unique_id = list("lon", "lat",
-  "id_pixel"))
+export_data(
+  x,
+  nc_dataframe,
+  final_kmeans_results,
+  filename,
+  export_vars = c("lon", "lat", "id_pixel", "gruppo"),
+  join_by = c("id_pixel", "lon", "lat"),
+  unique_id = c("lon", "lat", "id_pixel")
+)
 }
 \arguments{
 \item{x}{dataframe used in the kmeans analysis (prior to standardization)}
@@ -29,4 +34,3 @@ This function is used to extract the best results from the kmeans analysis.
 The best result is considered to be the result characterized by the highest
 Calinski-Harabasz index.
 }
-

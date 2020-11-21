@@ -4,8 +4,12 @@
 \alias{shift_lon_lat}
 \title{Shift lon and lat}
 \usage{
-shift_lon_lat(dataframe, reference_df, lon_lat_names = c("lon", "lat"),
-  shift_amount = NULL)
+shift_lon_lat(
+  dataframe,
+  reference_df,
+  lon_lat_names = c("lon", "lat"),
+  shift_amount = NULL
+)
 }
 \arguments{
 \item{dataframe}{a dplyr dataframe.}
@@ -24,4 +28,3 @@ by adding 2 units. Note that shift_amount is a list with specific names.}
 \description{
 Simply replace lon and lat with those in the reference dataframe
 }
-

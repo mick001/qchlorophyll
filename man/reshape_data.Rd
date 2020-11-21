@@ -21,4 +21,3 @@ A dplyr dataframe
 \description{
 Reshape the raw data and output into a dplyr dataframe.
 }
-

@@ -14,4 +14,3 @@ filter_out_na(reshaped_data_list, max_missing_periods)
 \description{
 Filter out data with more than n missing periods
 }
-

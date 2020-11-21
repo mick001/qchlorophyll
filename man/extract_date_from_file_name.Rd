@@ -4,8 +4,11 @@
 \alias{extract_date_from_file_name}
 \title{Extract date from filename}
 \usage{
-extract_date_from_file_name(file_name, date_format = "ymd",
-  date_match_position = 1)
+extract_date_from_file_name(
+  file_name,
+  date_format = "ymd",
+  date_match_position = 1
+)
 }
 \arguments{
 \item{file_name}{name of the file. Character}
@@ -40,4 +43,3 @@ it finds.
 2. Note that date format can be set (should it vary).
 3. If the date_format is not correct a NA is returned
 }
-

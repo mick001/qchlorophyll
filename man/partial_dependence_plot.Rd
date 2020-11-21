@@ -4,8 +4,14 @@
 \alias{partial_dependence_plot}
 \title{Partial dependence plot}
 \usage{
-partial_dependence_plot(rf_model, data, return_plot = FALSE, cols = 2,
-  ylabel = "y", verbose = FALSE)
+partial_dependence_plot(
+  rf_model,
+  data,
+  return_plot = FALSE,
+  cols = 2,
+  ylabel = "y",
+  verbose = FALSE
+)
 }
 \arguments{
 \item{rf_model}{random forest model obtained from the function fit_random_forest.}
@@ -27,4 +33,3 @@ is TRUE, NULL is returned.
 \description{
 Partial dependence plot
 }
-

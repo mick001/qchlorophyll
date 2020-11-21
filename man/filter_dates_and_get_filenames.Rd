@@ -29,4 +29,3 @@ Do this filtering for all the dates and return a list with only the names of the
 dates within that interval. Note that the names are the names of the files
 which the date is coming from.
 }
-

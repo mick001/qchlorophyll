@@ -4,8 +4,11 @@
 \alias{add_id_pixel_and_groups}
 \title{Add id_pixel and kmeans groups from a reference dataframe. Make a left join.}
 \usage{
-add_id_pixel_and_groups(dataframe_list, reference_dataframe,
-  join_by = c("lon", "lat"))
+add_id_pixel_and_groups(
+  dataframe_list,
+  reference_dataframe,
+  join_by = c("lon", "lat")
+)
 }
 \arguments{
 \item{dataframe_list}{a list of dplyr dataframes}
@@ -19,4 +22,3 @@ For each dataframe in the data_frame list, id_pixel and the group from the kmean
 is added. Note that the reference dataframe must contain longitude, latitude (lon and lat),
 id_pixel and groups.
 }
-

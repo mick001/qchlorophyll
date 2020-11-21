@@ -4,15 +4,23 @@
 \alias{approximate_NAs}
 \title{Impute NAs using mice.}
 \usage{
-approximate_NAs(data, seed, exclude_variables = list("lon", "lat",
-  "id_pixel"), m = 5, maxit = 50, meth = "pmm", verbose = FALSE, ...)
+approximate_NAs(
+  data,
+  seed,
+  exclude_variables = c("lon", "lat", "id_pixel"),
+  m = 5,
+  maxit = 50,
+  meth = "pmm",
+  verbose = FALSE,
+  ...
+)
 }
 \arguments{
 \item{data}{a dplyr dataframe containing the data to be standardized}
 
 \item{seed}{random seed for reproducibility purposes}
 
-\item{exclude_variables}{variables to be excluded from the standardization process. A list of characters.}
+\item{exclude_variables}{variables to be excluded from the standardization process. A vector of characters.}
 
 \item{m}{Number of multiple imputations. The default is m=5.}
 
@@ -33,4 +41,3 @@ The imputation method can be chosen by setting the meth parameter. For a list of
 all the available imputation methods available, please check the documentation of
 the mice::mice function (?mice::mice)
 }
-

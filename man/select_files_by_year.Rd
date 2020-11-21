@@ -19,4 +19,3 @@ a vector of filenames filtered by year
 \description{
 Select files to load from a given range of years.
 }
-

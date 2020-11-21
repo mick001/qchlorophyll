@@ -4,9 +4,16 @@
 \alias{load_all_as_list}
 \title{Load all .nc files in a given local path}
 \usage{
-load_all_as_list(path, from = NULL, to = NULL, variables = c("CHL1_mean"),
-  coordinates = c("lon", "lat"), spare_coordinates = c("longitude",
-  "latitude"), date_format = "ymd", date_match_position = 1)
+load_all_as_list(
+  path,
+  from = NULL,
+  to = NULL,
+  variables = c("CHL1_mean"),
+  coordinates = c("lon", "lat"),
+  spare_coordinates = c("longitude", "latitude"),
+  date_format = "ymd",
+  date_match_position = 1
+)
 }
 \arguments{
 \item{path}{Path where to .nc files are located. Example: /home/data. Character.}
@@ -38,4 +45,3 @@ A list of all the .nc files loaded
 \description{
 Load all .nc files in a given local path
 }
-

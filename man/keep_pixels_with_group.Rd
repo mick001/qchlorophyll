@@ -14,4 +14,3 @@ keep_pixels_with_group(data, group_name = "gruppo")
 \description{
 Filter out pixels that have no group assigned
 }
-

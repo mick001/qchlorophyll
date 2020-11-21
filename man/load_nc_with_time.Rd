@@ -4,10 +4,19 @@
 \alias{load_nc_with_time}
 \title{Load .nc files that contain a time variable.}
 \usage{
-load_nc_with_time(path, from = NULL, to = NULL, variables = c("qnet"),
-  coordinates = c("lon", "lat"), spare_coordinates = c("longitude",
-  "latitude"), time_variable = "time", lower_left_lat_lon = c(52, -65),
-  upper_right_lat_lon = c(67, -42), monthly = FALSE, date_origin = NULL)
+load_nc_with_time(
+  path,
+  from = NULL,
+  to = NULL,
+  variables = c("qnet"),
+  coordinates = c("lon", "lat"),
+  spare_coordinates = c("longitude", "latitude"),
+  time_variable = "time",
+  lower_left_lat_lon = c(52, -65),
+  upper_right_lat_lon = c(67, -42),
+  monthly = FALSE,
+  date_origin = NULL
+)
 }
 \arguments{
 \item{path}{Path where to .nc files are located. Example: /home/data. Character.}
@@ -57,4 +66,3 @@ Dates are assumed to begin from the 1st of January. If the dates are in the form
 from a given date", please specify the starting date in the format "yyyy-mm-dd". Please note
 that no other formats are accepted. See the parameter date_origin below.
 }
-

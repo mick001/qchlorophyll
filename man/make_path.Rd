@@ -24,4 +24,3 @@ path = "/home/user/date"
 filename = "data.txt"
 Return = "/home/user/date/data.txt"
 }
-

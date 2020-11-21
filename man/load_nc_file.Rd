@@ -4,9 +4,14 @@
 \alias{load_nc_file}
 \title{Load a single .nc file}
 \usage{
-load_nc_file(file_path, variables = c("CHL1_mean"), coordinates = c("lon",
-  "lat"), spare_coordinates = c("longitude", "latitude"),
-  date_format = "ymd", date_match_position = 1)
+load_nc_file(
+  file_path,
+  variables = c("CHL1_mean"),
+  coordinates = c("lon", "lat"),
+  spare_coordinates = c("longitude", "latitude"),
+  date_format = "ymd",
+  date_match_position = 1
+)
 }
 \arguments{
 \item{file_path}{the path of the file to load. Character.}
@@ -34,4 +39,3 @@ This function loads a single .nc files and returns a dplyr dataframe of the extr
 # Load "data02022015.nc"
 # data_02022015 <- load_nc_file("~path/data02022015.nc", date_format = "dmy")
 }
-

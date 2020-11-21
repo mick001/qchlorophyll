@@ -17,4 +17,3 @@ The requested variable. Data structure depends on which variable is recovered.
 \description{
 This function extracts the variable var from a given nc file.
 }
-

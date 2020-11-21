@@ -4,8 +4,11 @@
 \alias{load_mask}
 \title{Load the mask file as a data frame.}
 \usage{
-load_mask(mask_file = "mask_25km.nc", lon_lat_names = c("lon", "lat"),
-  mask_name = "lsmask")
+load_mask(
+  mask_file = "mask_25km.nc",
+  lon_lat_names = c("lon", "lat"),
+  mask_name = "lsmask"
+)
 }
 \arguments{
 \item{mask_file}{path to nc file containing the binary mask}
@@ -20,4 +23,3 @@ a dplyr dataframe
 \description{
 Load the mask file as a data frame.
 }
-

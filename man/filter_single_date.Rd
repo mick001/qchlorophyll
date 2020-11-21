@@ -23,4 +23,3 @@ Filter a given date within a given interval:
 If the date is within the interval, return the date
 If not, return NULL.
 }
-

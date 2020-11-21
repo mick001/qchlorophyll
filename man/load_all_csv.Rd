@@ -4,8 +4,14 @@
 \alias{load_all_csv}
 \title{Load a bunch of csv files into a single list}
 \usage{
-load_all_csv(main_folder_path, folder, starts_with, years = c("2011", "2012"),
-  npixels = 5520, must_have_variables = c("lon", "lat"))
+load_all_csv(
+  main_folder_path,
+  folder,
+  starts_with,
+  years = c("2011", "2012"),
+  npixels = 5520,
+  must_have_variables = c("lon", "lat")
+)
 }
 \arguments{
 \item{main_folder_path}{path to the main folder}
@@ -25,4 +31,3 @@ in its name where the only changing part is assumed to be the year. A character}
 This function loads a bunch of .csv files with identical structure and recurrent pattern
 into a single list. Each .csv file is assumed to have a recurrent pattern in its name.
 }
-

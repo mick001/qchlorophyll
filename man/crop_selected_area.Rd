@@ -23,4 +23,3 @@ Returns a list of dplyr dataframes
 This function is used to crop a selected area from a list of dataframes of
 geographical observations
 }
-

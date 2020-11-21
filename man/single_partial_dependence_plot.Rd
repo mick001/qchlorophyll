@@ -4,8 +4,13 @@
 \alias{single_partial_dependence_plot}
 \title{Plot a single partial dependence plot}
 \usage{
-single_partial_dependence_plot(rf_model, data, variable, return_plot = FALSE,
-  ylabel = "y")
+single_partial_dependence_plot(
+  rf_model,
+  data,
+  variable,
+  return_plot = FALSE,
+  ylabel = "y"
+)
 }
 \arguments{
 \item{rf_model}{random forest model obtained from the function fit_random_forest.}
@@ -26,4 +31,3 @@ on the argument return_plot.
 \description{
 Plot a single partial dependence plot
 }
-

@@ -4,8 +4,13 @@
 \alias{predictive_map}
 \title{Plot predictive map}
 \usage{
-predictive_map(rf_model, data, facet_plot = FALSE, facet_by = "year",
-  lon_lat_names = list("lon", "lat"))
+predictive_map(
+  rf_model,
+  data,
+  facet_plot = FALSE,
+  facet_by = "year",
+  lon_lat_names = list("lon", "lat")
+)
 }
 \arguments{
 \item{rf_model}{random forest model obtained from the function fit_random_forest.}
@@ -22,4 +27,3 @@ an average prediction is computed and plotted. Boolean}
 \description{
 Plot predictive map
 }
-

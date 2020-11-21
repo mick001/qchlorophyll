@@ -17,4 +17,3 @@ a dplyr dataframe
 \description{
 Apply the mask to the data and remove earth pixels
 }
-

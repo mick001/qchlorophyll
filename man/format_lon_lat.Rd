@@ -4,8 +4,12 @@
 \alias{format_lon_lat}
 \title{Fix latitude and longitude}
 \usage{
-format_lon_lat(dataframe, reference_df, variable, lon_lat_names = c("lon",
-  "lat"))
+format_lon_lat(
+  dataframe,
+  reference_df,
+  variable,
+  lon_lat_names = c("lon", "lat")
+)
 }
 \arguments{
 \item{dataframe}{a dplyr dataframe.}
@@ -22,4 +26,3 @@ Example: by default lon_lat_names = c("lon", "lat")}
 A brute force approach is used to match latitude and longitude pairs and the corrisponding value of
 variable.
 }
-

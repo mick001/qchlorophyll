@@ -4,9 +4,17 @@
 \alias{recover_nc_data}
 \title{Load nc files to be resized. Subfunction}
 \usage{
-recover_nc_data(file_path, variables, coordinates, spare_coordinates,
-  time_variable, monthly, lower_left_lat_lon, upper_right_lat_lon,
-  date_origin = NULL)
+recover_nc_data(
+  file_path,
+  variables,
+  coordinates,
+  spare_coordinates,
+  time_variable,
+  monthly,
+  lower_left_lat_lon,
+  upper_right_lat_lon,
+  date_origin = NULL
+)
 }
 \arguments{
 \item{file_path}{Path where the file is located. Example: /home/data. Character.}
@@ -37,4 +45,3 @@ a dplyr dataframe
 \description{
 Load nc files to be resized. Subfunction
 }
-

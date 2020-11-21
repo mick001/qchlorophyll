@@ -22,4 +22,3 @@ Returns existing coordinates (either coordinates or spare_coordinates)
 Check existence of a variable inside a given .nc file.
 If the variable does not exist, use the replacement one.
 }
-

@@ -4,8 +4,14 @@
 \alias{kmeans_analysis}
 \title{Run kmeans analysis}
 \usage{
-kmeans_analysis(x, n_centers, nstart = 1, seed = NULL,
-  exclude_variables = list("lon", "lat", "id_pixel"), ...)
+kmeans_analysis(
+  x,
+  n_centers,
+  nstart = 1,
+  seed = NULL,
+  exclude_variables = c("lon", "lat", "id_pixel"),
+  ...
+)
 }
 \arguments{
 \item{x}{a dataframe or a matrix containing the data. The data should be
@@ -17,7 +23,7 @@ standardized for better results}
 
 \item{seed}{Random seed set for reproducibility purposes. Numeric, NULL by default. (Integer)}
 
-\item{exclude_variables}{variables to exclude from kmeans analysis. A list of characters}
+\item{exclude_variables}{variables to exclude from kmeans analysis. A vector of characters}
 
 \item{...}{Other arguments accepted by the stats::kmeans function.}
 }
@@ -27,4 +33,3 @@ An object of class kmeans
 \description{
 Note: this function takes as argument all the arguments used by the stats::kmeans function.
 }
-

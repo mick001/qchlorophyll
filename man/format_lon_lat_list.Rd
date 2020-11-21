@@ -4,9 +4,15 @@
 \alias{format_lon_lat_list}
 \title{Align longitude and latitude values.}
 \usage{
-format_lon_lat_list(df_list, reference_df, variable = NULL,
-  reformat = FALSE, shift = FALSE, lon_lat_names = c("lon", "lat"),
-  shift_amount = NULL)
+format_lon_lat_list(
+  df_list,
+  reference_df,
+  variable = NULL,
+  reformat = FALSE,
+  shift = FALSE,
+  lon_lat_names = c("lon", "lat"),
+  shift_amount = NULL
+)
 }
 \arguments{
 \item{df_list}{a list of dplyr dataframes. For each dataframe in the list, longitude and latitude will be
@@ -42,4 +48,3 @@ set the amount of the shifting.
 
 If both reformat and shift are set to FALSE, the df_list is simply returned without any changes.
 }
-

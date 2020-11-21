@@ -4,8 +4,13 @@
 \alias{resize_mask}
 \title{Resize the mask}
 \usage{
-resize_mask(mask, reference_df, step = 0.25, coordinates_names = c("lon",
-  "lat"), plot_ = FALSE)
+resize_mask(
+  mask,
+  reference_df,
+  step = 0.25,
+  coordinates_names = c("lon", "lat"),
+  plot_ = FALSE
+)
 }
 \arguments{
 \item{mask}{a mask dataframe loaded using the load_mask function.}
@@ -24,4 +29,3 @@ a dplyr dataframe
 \description{
 Resize the mask
 }
-

@@ -16,4 +16,3 @@ multiplot(plots = NULL, cols = 1, layout = NULL)
 \description{
 Fit multiple plots in a single plot
 }
-

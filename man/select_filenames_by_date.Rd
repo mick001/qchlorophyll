@@ -26,4 +26,3 @@ Select names of the file to be loaded according to boundary conditions.
 3. to = given, from = NULL. All files up to the given date are selected
 4. to = from = given. Files within the dates interval are selected
 }
-

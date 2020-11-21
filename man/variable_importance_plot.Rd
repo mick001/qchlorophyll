@@ -4,8 +4,12 @@
 \alias{variable_importance_plot}
 \title{Plot variable importance}
 \usage{
-variable_importance_plot(rf_model, title = "Variable importance plot",
-  sort = TRUE, ...)
+variable_importance_plot(
+  rf_model,
+  title = "Variable importance plot",
+  sort = TRUE,
+  ...
+)
 }
 \arguments{
 \item{rf_model}{random forest model obtained from the function fit_random_forest.}
@@ -19,4 +23,3 @@ variable_importance_plot(rf_model, title = "Variable importance plot",
 \description{
 Plot variable importance
 }
-

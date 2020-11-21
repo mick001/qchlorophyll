@@ -4,8 +4,15 @@
 \alias{fit_random_forest}
 \title{Fit a random forest model}
 \usage{
-fit_random_forest(formula, data, ntree = 1000, na.action = na.omit,
-  importance = TRUE, seed = NULL, ...)
+fit_random_forest(
+  formula,
+  data,
+  ntree = 1000,
+  na.action = na.omit,
+  importance = TRUE,
+  seed = NULL,
+  ...
+)
 }
 \arguments{
 \item{formula}{A formula for the random forest such as y~x.}
@@ -25,4 +32,3 @@ fit_random_forest(formula, data, ntree = 1000, na.action = na.omit,
 \description{
 Fit a random forest model
 }
-

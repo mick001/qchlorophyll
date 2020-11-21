@@ -5,8 +5,13 @@
 \title{This function is used to assign an id to the interpolated obsevartions based on
 the reference dataframe used in the interpolation process.}
 \usage{
-assign_id_from_reference(df, reference_df, coordinates = c("lon", "lat"),
-  id_name = "id_pixel", arrange_order = c("id_pixel", "id_date"))
+assign_id_from_reference(
+  df,
+  reference_df,
+  coordinates = c("lon", "lat"),
+  id_name = "id_pixel",
+  arrange_order = c("id_pixel", "id_date")
+)
 }
 \arguments{
 \item{df}{a dplyr dataframe to be assigned an id according to a
@@ -36,4 +41,3 @@ on a given reference dataframe.
 3) The function assign_id_from_reference can be finally used to match the id_pixel in the reference
 dataframe to each pair of longitude and latitude.
 }
-

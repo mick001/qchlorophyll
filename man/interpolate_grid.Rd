@@ -4,9 +4,15 @@
 \alias{interpolate_grid}
 \title{Interpolate a list of dplyr dataframes}
 \usage{
-interpolate_grid(data_list, reference_df, variable, unique_id = "id_date",
-  step = 0.25, coordinates_names = c("lon", "lat"),
-  date_variable_name = "date")
+interpolate_grid(
+  data_list,
+  reference_df,
+  variable,
+  unique_id = "id_date",
+  step = 0.25,
+  coordinates_names = c("lon", "lat"),
+  date_variable_name = "date"
+)
 }
 \arguments{
 \item{data_list}{a list of dplyr dataframes to interpolate}
@@ -33,4 +39,3 @@ a dplyr dataframe
 \description{
 Interpolate a list of dplyr dataframes
 }
-
