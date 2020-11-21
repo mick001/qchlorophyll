@@ -1,14 +1,14 @@
 Package: qchlorophyll
 Type: Package
 Title: qchlorophyll
-Version: 2.0
+Version: 3.0
 Date: 2016-05-06
 Author: Michy Alice
 Maintainer: Michy Alice <michy.alice@quantide.com>
 Description: Package for geographical chlorophyll analysis. This package can be used for loading data from .nc files on satellite observations, aggregate that data and calculate summary statistics on it. The package provides also a set of functions for fitting a random forest model on the data and a set of functions for collecting and displaying the results of the fitting.
 Imports:
     ncdf4,
-    dplyr (>= 0.4.3),
+    dplyr (>= 1.0.2),
     tidyr (>= 0.4.1),
     lubridate (>= 1.5.6),
     ggplot2 (>= 2.1.0),
@@ -17,10 +17,10 @@ Imports:
     lattice,
     randomForest (>= 4.6-12),
     grid (>= 3.2.2),
-    lazyeval (>= 0.1.10),
+    rlang (>= 0.4.7),
     stringi,
     sp,
     gstat
 License: GPL-3
 LazyData: TRUE
-RoxygenNote: 5.0.1
+RoxygenNote: 7.1.1
