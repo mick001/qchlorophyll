@@ -47,7 +47,7 @@ The package provides the following functions:
 Requires the following packages:
 
 - ncdf4
-- dplyr (>= 0.4.3)
+- dplyr (>= 1.0.2)
 - tidyr (>= 0.4.1)
 - lubridate (>= 1.5.6)
 - ggplot2 (>= 2.1.0)
